@@ -1,7 +1,6 @@
 package transport.model;
 
 import java.util.Locale;
-import java.io.PrintStream;
 
 /** Общая часть подвижного состава. Естественный порядок — возрастание комфорта. */
 public abstract class Railcar implements Comparable<Railcar> {
@@ -12,7 +11,7 @@ public abstract class Railcar implements Comparable<Railcar> {
     protected Railcar(int number, double weight, int comfortLevel) {
         this.number = positive(number,1);
         this.weight = positive(weight, 100);
-        this.comfortLevel = Math.max(comfortLevel, 1);
+        this.comfortLevel = Math.max(0, Math.min(comfortLevel, 5));
     }
 
     public final int getNumber() { return number; }
@@ -35,7 +34,7 @@ public abstract class Railcar implements Comparable<Railcar> {
 
     protected static int positive(int value, int defaultValue){
         if(value<=0){
-            System.out.printf("Значение должно быть положительным. Выбрано значение по умолчанию (%.1f)%n", defaultValue);
+            System.out.printf("Значение должно быть положительным. Выбрано значение по умолчанию (%d)%n", defaultValue);
             return defaultValue;
         } else return value;
     }
