@@ -3,7 +3,7 @@ package transport.model;
 import java.util.Locale;
 
 /** Общая часть подвижного состава. Естественный порядок — возрастание комфорта. */
-public abstract class Railcar implements Comparable<Railcar> {
+public abstract class Railcar {
     private final int number;
     private final double weight;
     private final int comfortLevel;
@@ -20,8 +20,7 @@ public abstract class Railcar implements Comparable<Railcar> {
     /** 0 — без пассажирского комфорта, 5 — наивысший уровень. */
     public final int getComfortLevel() { return comfortLevel; }
 
-    @Override
-    public final int compareTo(Railcar other) {
+    protected final int compareComfort(Railcar other) {
         return Integer.compare(comfortLevel, other.comfortLevel);
     }
 

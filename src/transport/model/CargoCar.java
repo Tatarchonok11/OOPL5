@@ -3,15 +3,15 @@ package transport.model;
 import java.util.Locale;
 
 /** Грузовой вагон, используемый для перевозки багажа пассажирского поезда. */
-public final class CargoCar extends Railcar implements LuggageCarrier {
+public final class CargoCar extends Railcar implements PassengerCarrier {
     private static final double DEFAULT_MAX_LOAD = 2500.0;
     private static final double DEFAULT_LUGGAGE_WEIGHT = 1000.0;
 
     private final double maxLoad;
     private final double luggageWeight;
 
-    public CargoCar(int number, double weight, int comfortLevel, double maxLoad, double luggageWeight) {
-        super(number, weight, comfortLevel);
+    public CargoCar(int number, double weight, double maxLoad, double luggageWeight) {
+        super(number, weight, 0);
 
         double validMaxLoad = positive(maxLoad, DEFAULT_MAX_LOAD);
         double validLuggage = positive(luggageWeight, DEFAULT_LUGGAGE_WEIGHT);
@@ -25,7 +25,12 @@ public final class CargoCar extends Railcar implements LuggageCarrier {
     }
 
     @Override
-    public double getLuggageWeight() {
+    public int getPassengerCapacity() {
+        return 0;
+    }
+
+    @Override
+    public double getLuggageCapacity() {
         return luggageWeight;
     }
 

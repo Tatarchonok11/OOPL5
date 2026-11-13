@@ -1,6 +1,7 @@
 package transport.model;
 
-/** Способность перевозить пассажиров; число фактически находящихся на борту людей. */
+/** Общий контракт вагона, участвующего в расчёте состава. */
 public interface PassengerCarrier {
-    int getPassengerCount();
+    int getPassengerCapacity();
+    double getLuggageCapacity();
 }

@@ -2,7 +2,7 @@ package transport.ui;
 
 import transport.model.*;
 import transport.service.PassengerTrain;
-import transport.sort.RailcarWeightComparator;
+import transport.sort.RailcarComfortComparator;
 
 import java.io.PrintStream;
 import java.util.List;
@@ -42,8 +42,8 @@ public final class ConsoleMenu {
                             train.sortByComfort();
                             printCars("Состав по возрастанию комфорта (Comparable)", train.getCars());
                         }
-                        case 4 -> printCars("Копия состава по возрастанию массы (Comparator)",
-                                train.sortedCars(new RailcarWeightComparator()));
+                        case 4 -> printCars("Копия состава по возрастанию комфорта (Comparator)",
+                                train.sortedCars(new RailcarComfortComparator()));
                         case 5 -> findCars();
                         case 6 -> addCar();
                         case 7 -> printCapabilities();
@@ -112,7 +112,7 @@ public final class ConsoleMenu {
             case 4 -> {
                 double capacity = readDouble("Грузоподъёмность (кг): ", false);
                 double luggage = readDouble("Багаж (кг): ", false, capacity);
-                yield new CargoCar(number, weight, comfort, capacity, luggage);
+                yield new CargoCar(number, weight, capacity, luggage);
             }
             case 5 -> {
                 double capacity = readDouble("Максимальная масса почты (кг): ", false);
@@ -152,14 +152,10 @@ public final class ConsoleMenu {
         }
         output.println(car.getInfo());
         if (car instanceof PassengerCarrier carrier) {
-            output.println("PassengerCarrier: пассажиров " + carrier.getPassengerCount());
+            output.println("PassengerCarrier: пассажиров " + carrier.getPassengerCapacity());
+            output.printf(Locale.ROOT, "Багаж %.1f кг%n", carrier.getLuggageCapacity());
         } else {
             output.println("Перевозка пассажиров не предусмотрена.");
-        }
-        if (car instanceof LuggageCarrier carrier) {
-            output.printf(Locale.ROOT, "LuggageCarrier: багаж %.1f кг%n", carrier.getLuggageWeight());
-        } else {
-            output.println("Перевозка пассажирского багажа не предусмотрена.");
         }
     }
 

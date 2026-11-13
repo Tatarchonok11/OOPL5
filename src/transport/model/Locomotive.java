@@ -2,7 +2,7 @@ package transport.model;
 
 import java.util.Locale;
 
-public final class Locomotive extends Railcar {
+public final class Locomotive extends Railcar implements Comparable<Railcar> {
     private static final double DEFAULT_POWER = 750.0;
 
     private final double power;
@@ -14,6 +14,11 @@ public final class Locomotive extends Railcar {
 
     public double getPower() {
         return power;
+    }
+
+    @Override
+    public int compareTo(Railcar other) {
+        return compareComfort(other);
     }
 
     @Override

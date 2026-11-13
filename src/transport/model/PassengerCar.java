@@ -2,7 +2,7 @@ package transport.model;
 
 import java.util.Locale;
 
-public class PassengerCar extends Railcar implements PassengerCarrier, LuggageCarrier {
+public class PassengerCar extends Railcar implements PassengerCarrier, Comparable<Railcar> {
     private static final int DEFAULT_CAPACITY = 36;
     private static final int DEFAULT_PASSENGERS = 1;
     private static final double DEFAULT_LUGGAGE = 0.0;
@@ -33,13 +33,18 @@ public class PassengerCar extends Railcar implements PassengerCarrier, LuggageCa
     }
 
     @Override
-    public final int getPassengerCount() {
+    public final int getPassengerCapacity() {
         return passengerCount;
     }
 
     @Override
-    public final double getLuggageWeight() {
+    public final double getLuggageCapacity() {
         return luggageWeight;
+    }
+
+    @Override
+    public final int compareTo(Railcar other) {
+        return compareComfort(other);
     }
 
     @Override

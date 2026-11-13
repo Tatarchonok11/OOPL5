@@ -3,7 +3,7 @@ package transport.model;
 import java.util.Locale;
 
 /** Почтовый груз учитывается отдельно от пассажирского багажа. */
-public final class MailCar extends Railcar {
+public final class MailCar extends Railcar implements Comparable<Railcar> {
     private static final double DEFAULT_MAX_MAIL_WEIGHT = 5000.0;
     private static final double DEFAULT_MAIL_WEIGHT = 0.0;
 
@@ -33,6 +33,11 @@ public final class MailCar extends Railcar {
 
     public double getMailWeight() {
         return mailWeight;
+    }
+
+    @Override
+    public int compareTo(Railcar other) {
+        return compareComfort(other);
     }
 
     @Override
